@@ -1,20 +1,25 @@
 
-from pydantic import BaseModel
-from typing import  Dict
+from pydantic import BaseModel, EmailStr, AnyUrl
+from typing import Dict, Optional
+from typing import List
 
 
 class Patient(BaseModel):
     
     name: str
     age : int
+    # email: EmailStr
+    linkedin_url : AnyUrl
     weight: float
     married: bool
-    allergies: list[str]
+    allergies: Optional[list[str]] = None
     contact_details: Dict[str,str]
 
 def insert_patient_data(patient: Patient):
     print(patient.name)
     print(patient.age)
+    print(patient.linkedin_url)
+    print(patient.allergies)
     print('Inserted into database')
     
 def update_patient_data(patient: Patient):
@@ -22,8 +27,8 @@ def update_patient_data(patient: Patient):
     print(patient.age)
     print('updated')
             
-patient_info = {'name': 'Pranshu', 'age': 23, 'weight': 68.7, 'married': True,
-                'allergies':['pollution','dust'], 'contact_details' :{'email': 'abc@gmail.com', 'phone': '123456789'}}
+patient_info = {'name': 'Pranshu', 'age': 23, 'linkedin_url' : 'https://linkedin/001', 'weight': 68.7, 'married': True,
+                'contact_details' :{'phone': '123456789'}}
 
 patient1 = Patient(**patient_info)
 
